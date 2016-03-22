@@ -120,7 +120,7 @@ public class IndicationDAO{
             pstmt.executeUpdate() ;  
             pstmt.close() ;  
         }catch (Exception e){  
-        	System.out.println("Indication Update Failed : " + e.getMessage());
+        	System.out.println("Indication delete Failed : " + e.getMessage());
         }  
         finally{  
         	dbc.getConnection().close();
