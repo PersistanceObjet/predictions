@@ -26,7 +26,7 @@ public class ConfirmationDAO {
 		} catch (Exception e) {
 			throw new Exception("ERROR! ");
 		} finally {
-			dbc.close();
+			dbc.getConnection().close();
 		}
 	}
 
@@ -43,7 +43,7 @@ public class ConfirmationDAO {
 		} catch (Exception e) {
 			throw new Exception("ERROR!");
 		} finally {
-			dbc.close();
+			dbc.getConnection().close();
 		}
 	}
 
@@ -64,7 +64,7 @@ public class ConfirmationDAO {
 		} catch (Exception e) {
 			throw new Exception("ERROR!");
 		} finally {
-			dbc.close();
+			dbc.getConnection().close();
 		}
 	}
 
@@ -88,7 +88,7 @@ public class ConfirmationDAO {
 		} catch (Exception e) {
 			throw new Exception("ERROR!");
 		} finally {
-			dbc.close();
+			dbc.getConnection().close();
 		}
 		return con;
 	}
@@ -113,7 +113,7 @@ public class ConfirmationDAO {
 		} catch (Exception e) {
 			throw new Exception("ERROR!");
 		} finally {
-			dbc.close();
+			dbc.getConnection().close();
 		}
 		return all;
 	}
