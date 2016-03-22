@@ -1,3 +1,7 @@
+<%@page import="java.util.ArrayList"%>
+
+<%@page import="fr.dauphine.lamsade.hib.predictions.dao.ConfirmationDAO"%>
+<%@page import="fr.dauphine.lamsade.hib.predictions.objects.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -8,13 +12,11 @@
 </head>
 <body>
  <%  
-        UserDAO userDAO = DAOFactory.getUserDAOInstance();  
-        List<User> all = userDAO.queryAll();  
-        Iterator<User> iter = all.iterator();  
-        while(iter.hasNext()) {  
-            User user = iter.next();  
-            out.println(":" + user.getUsername());  
-            out.println(":" + user.getPassword() + "<br>");  
+       ConfirmationDAO conDao = new ConfirmationDAO();;  
+       List<Confirmation> all = conDao.queryAll(); 
+       for(Confirmation con:all) {  
+            out.println(":" + con.getConfirmation_id());  
+            out.println(":" + con.isConfirmation_flag() + "<br>");  
         }  
     %> 
 </body>

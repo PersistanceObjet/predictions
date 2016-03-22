@@ -1,3 +1,4 @@
+<%@page import="fr.dauphine.lamsade.hib.predictions.objects.Confirmation"%>
 <%@page import="fr.dauphine.lamsade.hib.predictions.dao.ConfirmationDAO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -10,7 +11,8 @@
 <body>  
     <%  
         ConfirmationDAO conDao =new ConfirmationDAO();
-        conDao.delete(0);  
+        Confirmation con = new Confirmation();
+        conDao.delete(con);  
     %>  
 </body>  >
 </html>
