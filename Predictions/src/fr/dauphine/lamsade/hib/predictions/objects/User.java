@@ -1,7 +1,8 @@
 package fr.dauphine.lamsade.hib.predictions.objects;
 
 public class User {
-
+	
+	int id;
 	String first_Name;
 	String last_Name;
 	String user_Login;
@@ -12,6 +13,20 @@ public class User {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	
+	
+	public int getId() {
+		return id;
+	}
+
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
 
 	public String getFirst_Name() {
 		return first_Name;
