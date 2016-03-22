@@ -3,8 +3,8 @@ package fr.dauphine.lamsade.hib.predictions.objects;
 public class Indication {
 	
 	private int id;
-	private float temp;
-	private float humidite;
+	private double temp;
+	private double humidite;
 	private String weather;
 	private int count;
 	private User user;
@@ -20,16 +20,16 @@ public class Indication {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public float getTemp() {
+	public double getTemp() {
 		return temp;
 	}
-	public void setTemp(float temp) {
+	public void setTemp(double temp) {
 		this.temp = temp;
 	}
-	public float getHumidite() {
+	public double getHumidite() {
 		return humidite;
 	}
-	public void setHumidite(float humidite) {
+	public void setHumidite(double humidite) {
 		this.humidite = humidite;
 	}
 	public String getWeather() {

@@ -25,5 +25,9 @@ public class UserDAO {
 		//assert(!isResultSet);
 		//assert(stmt.getUpdateCount() == 1);
 	}
+	
+	public User find(int id) {
+		return null;
+	}
 
 }
