@@ -1,6 +1,10 @@
 package fr.dauphine.lamsade.hib.predictions.service;
 
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import fr.dauphine.lamsade.hib.predictions.dao.IndicationDAO;
 import fr.dauphine.lamsade.hib.predictions.dao.PredictionDAO;
@@ -14,6 +18,28 @@ public class IndicationService {
 	private UserDAO userDAO = new UserDAO();
 	private PredictionDAO predictionDAO = new PredictionDAO();
 	private IndicationDAO indicationDAO = new IndicationDAO();
+	private Map<String, String> erreurs = new HashMap<String, String>();
+	
+	public String getValeurChamp( HttpServletRequest request, String nomChamp ) {
+        String valeur = request.getParameter( nomChamp );
+        if ( valeur == null || valeur.trim().length() == 0 ) {
+            return null;
+        } else {
+            return valeur.trim();
+        }
+    }
+	
+	public Map<String, String> getErreurs() {
+		return erreurs;
+	}
+	
+	protected void setErreur( String champ, String message ) {
+        erreurs.put( champ, message );
+    }
+	
+	public void resetErreurs() {
+		this.erreurs = new HashMap<String, String>();
+	}
 	
 	public Indication create(String temp, String humidite, String weather, String count, String userId, String predictionId) {
 		
@@ -22,42 +48,46 @@ public class IndicationService {
 		try {
 			indication.setTemp(Double.parseDouble(temp));
 		}catch(NumberFormatException e){
-			System.out.println("Temps error : " + e.getMessage());
+			setErreur("temp_error", e.getMessage());
 		}
 		
 		try {
 			indication.setHumidite(Double.parseDouble(humidite));
 		}catch(NumberFormatException e){
-			System.out.println("Humidité error : " + e.getMessage());
+			setErreur("humidité_error", e.getMessage());
 		}
 		
 		try {
 			indication.setCount(Integer.parseInt(count));
 		}catch(NumberFormatException e){
-			System.out.println("Count error : " + e.getMessage());
+			setErreur("count_error", e.getMessage());
 		}
 		
 		try {
 			User user = userDAO.find(Integer.parseInt(userId));
 			indication.setUser(user);
 		}catch(NumberFormatException e){
-			System.out.println("User Id error : " + e.getMessage());
+			setErreur("userId_error", e.getMessage());
+		}catch(SQLException e){
+			setErreur("user_error", e.getMessage());
 		}
 		
 		try {
 			Prediction prediction = predictionDAO.find(Integer.parseInt(predictionId));
 			indication.setPrediction(prediction);
 		}catch(NumberFormatException e){
-			System.out.println("Prediction Id error : " + e.getMessage());
+			setErreur("predictionId_error", e.getMessage());
 		}catch (Exception e) {
-			System.out.println("Prediction error : " + e.getMessage());
+			setErreur("prediction_error", e.getMessage());
 		}
 		
-		try {
-			indicationDAO.create(indication);
-		} catch (SQLException e) {
-			System.out.println("Indication Creation Failed : " + e.getMessage());
-		}
+		if (getErreurs().isEmpty()) {
+			try {
+				indicationDAO.create(indication);
+			} catch (SQLException e) {
+				setErreur("sql_error", e.getMessage());
+			}
+        }
 		
 		return indication;
 	}
@@ -69,7 +99,7 @@ public class IndicationService {
 		try {
 			indication = indicationDAO.find(Integer.parseInt(id));
 		}catch(SQLException e){
-			System.out.println("Indication Search Failed : " + e.getMessage());
+			setErreur("sql_error", e.getMessage());
 		}
 		
 		return indication;
@@ -82,49 +112,53 @@ public class IndicationService {
 		try {
 			indication = indicationDAO.find(Integer.parseInt(id));
 		}catch(SQLException e){
-			System.out.println("Indication Search Failed : " + e.getMessage());
+			setErreur("sql_error", e.getMessage());
 		}
 		
 		try {
 			indication.setTemp(Double.parseDouble(temp));
 		}catch(NumberFormatException e){
-			System.out.println("Temps error : " + e.getMessage());
+			setErreur("temp_error", e.getMessage());
 		}
 		
 		try {
 			indication.setHumidite(Double.parseDouble(humidite));
 		}catch(NumberFormatException e){
-			System.out.println("Humidité error : " + e.getMessage());
+			setErreur("humidité_error", e.getMessage());
 		}
 		
 		try {
 			indication.setCount(Integer.parseInt(count));
 		}catch(NumberFormatException e){
-			System.out.println("Count error : " + e.getMessage());
+			setErreur("count_error", e.getMessage());
 		}
 		
 		try {
 			User user = userDAO.find(Integer.parseInt(userId));
 			indication.setUser(user);
 		}catch(NumberFormatException e){
-			System.out.println("User Id error : " + e.getMessage());
+			setErreur("userId_error", e.getMessage());
+		}catch(SQLException e){
+			setErreur("user_error", e.getMessage());
 		}
 		
 		try {
 			Prediction prediction = predictionDAO.find(Integer.parseInt(predictionId));
 			indication.setPrediction(prediction);
 		}catch(NumberFormatException e){
-			System.out.println("Prediction Id error : " + e.getMessage());
-		}catch (Exception e) {
-			System.out.println("Prediction error : " + e.getMessage());
+			setErreur("predictionId_error", e.getMessage());
+		}catch (SQLException e) {
+			setErreur("prediction_error", e.getMessage());
 		}
 		
-		try {
-			indicationDAO.update(indication);
-		} catch (SQLException e) {
-			System.out.println("Indication Update Failed : " + e.getMessage());
+		if (getErreurs().isEmpty()) {
+			try {
+				indicationDAO.update(indication);
+			} catch (SQLException e) {
+				setErreur("sql_error", e.getMessage());
+			}
 		}
-		
+	
 		return indication;
 		
 	}
@@ -134,15 +168,20 @@ public class IndicationService {
 		
 		try {
 			indication = indicationDAO.find(Integer.parseInt(id));
+		}catch(NumberFormatException e){
+			setErreur("indicationId_error", e.getMessage());
 		}catch(SQLException e){
-			System.out.println("Indication Search Failed : " + e.getMessage());
+			setErreur("indication_error", e.getMessage());
 		}
 		
-		try {
-			indicationDAO.delete(indication);
-		} catch (SQLException e) {
-			System.out.println("Indication delete Failed : " + e.getMessage());
+		if (getErreurs().isEmpty()) {
+			try {
+				indicationDAO.delete(indication);
+			} catch (SQLException e) {
+				setErreur("sql_error", e.getMessage());
+			}
 		}
+		
 	}
 
 }
