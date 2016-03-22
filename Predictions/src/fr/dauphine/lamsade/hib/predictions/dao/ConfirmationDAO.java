@@ -18,6 +18,7 @@ public class ConfirmationDAO {
 			dbc = DBConnection.getInstance();
 			pstmt = dbc.getConnection().prepareStatement(sql);
 			pstmt.setBoolean(1, con.isConfirmation_flag());
+			pstmt.setInt(2,con.getUser().g;);
 			pstmt.executeUpdate();
 			pstmt.close();				
 		} catch (Exception e) {
