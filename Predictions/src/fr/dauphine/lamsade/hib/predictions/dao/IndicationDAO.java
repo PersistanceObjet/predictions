@@ -29,7 +29,7 @@ public class IndicationDAO{
             pstmt.setString(3, indication.getWeather());
             pstmt.setInt(4, indication.getCount());
             pstmt.setInt(5, indication.getUser().getId());
-            pstmt.setInt(6, indication.getPrediction().getId());
+            pstmt.setInt(6, indication.getPrediction().getPrediction_id());
             
             pstmt.executeUpdate() ;  
             pstmt.close() ;  
@@ -94,7 +94,7 @@ public class IndicationDAO{
             pstmt.setString(3, indication.getWeather());
             pstmt.setInt(4, indication.getCount());
             pstmt.setInt(5, indication.getUser().getId());
-            pstmt.setInt(6, indication.getPrediction().getId());
+            pstmt.setInt(6, indication.getPrediction().getPrediction_id());
             pstmt.setInt(7, indication.getId());
             
             pstmt.executeUpdate() ;  
