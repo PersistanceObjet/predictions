@@ -10,7 +10,7 @@ import fr.dauphine.lamsade.hib.predictions.objects.Confirmation;
 
 public class ConfirmationDAO {
 
-	public void inser(Confirmation con) throws Exception {
+	public void insert(Confirmation con) throws Exception {
 		String sql = "INSERT INTO Confirmation(Confirmation_flag,Confirmation_id,user_id,indication_id) VALUES(?,?,?,?)";
 		PreparedStatement pstmt = null;
 		DBConnection dbc = null;
@@ -26,7 +26,7 @@ public class ConfirmationDAO {
 		} catch (Exception e) {
 			throw new Exception("ERROR! ");
 		} finally {
-			dbc.close();
+			dbc.getConnection().close();
 		}
 	}
 
@@ -43,7 +43,7 @@ public class ConfirmationDAO {
 		} catch (Exception e) {
 			throw new Exception("ERROR!");
 		} finally {
-			dbc.close();
+			dbc.getConnection().close();
 		}
 	}
 
@@ -64,7 +64,7 @@ public class ConfirmationDAO {
 		} catch (Exception e) {
 			throw new Exception("ERROR!");
 		} finally {
-			dbc.close();
+			dbc.getConnection().close();
 		}
 	}
 
@@ -88,7 +88,7 @@ public class ConfirmationDAO {
 		} catch (Exception e) {
 			throw new Exception("ERROR!");
 		} finally {
-			dbc.close();
+			dbc.getConnection().close();
 		}
 		return con;
 	}
@@ -113,7 +113,7 @@ public class ConfirmationDAO {
 		} catch (Exception e) {
 			throw new Exception("ERROR!");
 		} finally {
-			dbc.close();
+			dbc.getConnection().close();
 		}
 		return all;
 	}
