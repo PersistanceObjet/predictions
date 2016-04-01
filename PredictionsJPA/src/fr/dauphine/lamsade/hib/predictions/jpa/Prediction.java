@@ -10,16 +10,13 @@ import java.util.List;
  * The persistent class for the prediction database table.
  * 
  */
-/**
- * @author Mehdi
- *
- */
 @Entity
 @NamedQuery(name="Prediction.findAll", query="SELECT p FROM Prediction p")
 public class Prediction implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="prediction_id")
 	private Integer predictionId;
 

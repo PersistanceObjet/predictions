@@ -9,16 +9,13 @@ import java.util.List;
  * The persistent class for the website database table.
  * 
  */
-/**
- * @author Mehdi
- *
- */
 @Entity
 @NamedQuery(name="Website.findAll", query="SELECT w FROM Website w")
 public class Website implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="website_id")
 	private Integer websiteId;
 

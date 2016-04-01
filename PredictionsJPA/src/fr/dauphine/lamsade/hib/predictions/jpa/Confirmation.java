@@ -8,16 +8,13 @@ import javax.persistence.*;
  * The persistent class for the confirmation database table.
  * 
  */
-/**
- * @author Shan
- *
- */
 @Entity
 @NamedQuery(name="Confirmation.findAll", query="SELECT c FROM Confirmation c")
 public class Confirmation implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="confirmation_id")
 	private Integer confirmationId;
 
