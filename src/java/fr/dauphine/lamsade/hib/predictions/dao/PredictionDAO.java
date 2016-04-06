@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Shitai
+ * @author Mehdi
  */
 @Stateless
 public class PredictionDAO extends AbstractDAO<Prediction> {

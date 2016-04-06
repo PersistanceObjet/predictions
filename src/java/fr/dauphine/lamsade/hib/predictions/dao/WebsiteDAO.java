@@ -12,7 +12,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Shitai
+ * @author Mehdi
  */
 @Stateless
 public class WebsiteDAO extends AbstractDAO<Website> {
