@@ -6,6 +6,7 @@
 package fr.dauphine.lamsade.hib.predictions.dao;
 
 import fr.dauphine.lamsade.hib.predictions.entity.User;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,6 +28,16 @@ public class UserDAO extends AbstractDAO<User> {
 
     public UserDAO() {
         super(User.class);
+    }
+    
+    public User findUserByUserLogin(String userLogin) {
+        User user = null;
+        //user = (User) em.createNamedQuery("User.findByEmail").setParameter("email", email).getSingleResult();
+        List<User> results = em.createNamedQuery("User.findByUserLogin").setParameter("userLogin", userLogin).getResultList();
+        if(!results.isEmpty()){
+            user = results.get(0);
+        }
+        return user;
     }
     
 }

@@ -29,14 +29,12 @@
 
                             <div style="margin-bottom: 25px" class="input-group" >
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i><span class="required">*</span></span>
-                                <input type="text" class="form-control" name="identification" value="<c:out value="${user.userLogin}"/>" placeholder="Identifiant"> 
-                                <span class="error">${errors['userLoginError']}</span>
+                                <input type="text" class="form-control" name="userLogin" value="<c:out value="${user.userLogin}"/>" placeholder="Identifiant"> 
                             </div>
 
                             <div style="margin-bottom: 25px" class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i><span class="required">*</span></span>
                                 <input type="password" class="form-control" name="password" placeholder="Mot de passe">
-                                <span class="error">${errors['passwordError']}</span>
                             </div>
 
                             <div style="margin-top:10px" class="form-group">
