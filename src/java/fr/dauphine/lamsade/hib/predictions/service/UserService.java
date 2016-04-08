@@ -5,21 +5,19 @@
  */
 package fr.dauphine.lamsade.hib.predictions.service;
 
-import fr.dauphine.lamsade.hib.predictions.dao.IndicationDAO;
 import fr.dauphine.lamsade.hib.predictions.dao.UserDAO;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 /**
  *
- * @author Shitai
+ * @author Ayman
  */
 @Stateless
-public class IndicationService {
+public class UserService {
 
     @EJB
     private UserDAO userDAO;
-    private IndicationDAO indicationDAO;
     
     
     
