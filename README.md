@@ -12,8 +12,11 @@ IDE utilisé Netbeans
 Responsabilité :
 
 Mehdi ==> Tables prévisions + websites
+
 Ayman ==> Table User
+
 Shan ==> Table Confirmation
+
 Shitai ==> Table Indication
 
 
