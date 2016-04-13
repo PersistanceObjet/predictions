@@ -6,7 +6,6 @@
 package fr.dauphine.lamsade.hib.predictions.entity;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +16,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -34,18 +32,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Confirmation implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "confirmation_id")
     private Integer confirmationId;
-    @Basic(optional = false)
+    
     @Column(name = "confirmation_flag")
     private boolean confirmationFlag;
+    
     @JoinColumn(name = "indication_id", referencedColumnName = "indication_id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false)   
     private Indication indicationId;
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id") 
     @ManyToOne(optional = false)
     private User userId;
 

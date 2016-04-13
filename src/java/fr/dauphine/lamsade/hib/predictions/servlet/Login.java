@@ -26,9 +26,20 @@ public class Login extends HttpServlet {
     @EJB
     private UserService service;
     
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        service.resetErrors();
+        this.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+    }
+    
    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        service.resetErrors();
+        
+        request.setAttribute("message", service.getMessage());
         
         String userLogin = service.getInputValue(request, "userLogin" );
         String password = service.getInputValue( request, "password" );
@@ -37,10 +48,20 @@ public class Login extends HttpServlet {
  
         User user = service.connect(userLogin, password);
         
-        if (user != null) {
-            session.setAttribute( "session_user", user );           
-        } else {                     
-            this.getServletContext().getRequestDispatcher( "/index.jsp" ).forward( request, response );
+        if (service.getErrors().isEmpty()) {
+         
+            session.setAttribute( "session_user", user );
+            
+            if(!(request.getHeader("referer").contains(request.getContextPath() + "/login") || request.getHeader("referer").contains(request.getContextPath() + "/"))) {
+                response.sendRedirect(request.getHeader("referer"));
+            }               
+            else response.sendRedirect(request.getContextPath() + "/user/home");
+            
+        } else {          
+            session.setAttribute("session_user", null);            
+            request.setAttribute("user", user);
+            request.setAttribute("errors", service.getErrors());
+            this.getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
         }
         
     }

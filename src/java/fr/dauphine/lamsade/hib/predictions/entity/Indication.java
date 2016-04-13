@@ -7,7 +7,6 @@ package fr.dauphine.lamsade.hib.predictions.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -43,24 +42,30 @@ public class Indication implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "indication_id")
     private Integer indicationId;
+    
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "indication_temp")
     private Double indicationTemp;
+    
     @Column(name = "indication_hum")
     private Double indicationHum;
-    @Size(max = 50)
+    
+    @Size(max = 255)
     @Column(name = "indication_weather")
     private String indicationWeather;
+    
     @Column(name = "indication_count")
     private Integer indicationCount;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "indicationId")
     private Collection<Confirmation> confirmationCollection;
+    
     @JoinColumn(name = "prediction_id", referencedColumnName = "prediction_id")
     @ManyToOne(optional = false)
     private Prediction predictionId;
+    
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     @ManyToOne(optional = false)
     private User userId;

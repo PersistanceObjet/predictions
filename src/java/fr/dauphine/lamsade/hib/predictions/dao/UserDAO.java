@@ -32,7 +32,6 @@ public class UserDAO extends AbstractDAO<User> {
     
     public User findUserByUserLogin(String userLogin) {
         User user = null;
-        //user = (User) em.createNamedQuery("User.findByEmail").setParameter("email", email).getSingleResult();
         List<User> results = em.createNamedQuery("User.findByUserLogin").setParameter("userLogin", userLogin).getResultList();
         if(!results.isEmpty()){
             user = results.get(0);

@@ -39,15 +39,17 @@ public class Website implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "website_id")
     private Integer websiteId;
-    @Size(max = 25)
+    
+    @Size(max = 255)
     @Column(name = "website_name")
     private String websiteName;
-    @Size(max = 200)
+    
+    @Size(max = 255)
     @Column(name = "website_url")
     private String websiteUrl;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "websiteId")
     private Collection<Prediction> predictionCollection;
 

@@ -49,32 +49,40 @@ public class Prediction implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "prediction_id")
     private Integer predictionId;
+    
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "temperature")
     private Double temperature;
+    
     @Column(name = "humidity")
     private Double humidity;
-    @Size(max = 25)
+    
+    @Size(max = 255)
     @Column(name = "weather")
     private String weather;
+    
     @Column(name = "prediction_date")
     @Temporal(TemporalType.DATE)
     private Date predictionDate;
-    @Size(max = 25)
+    
+    @Size(max = 255)
     @Column(name = "region")
     private String region;
-    @Size(max = 25)
+    
+    @Size(max = 255)
     @Column(name = "country")
     private String country;
-    @Size(max = 25)
+    
+    @Size(max = 255)
     @Column(name = "city")
     private String city;
+    
     @JoinColumn(name = "website_id", referencedColumnName = "website_id")
     @ManyToOne(optional = false)
     private Website websiteId;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "predictionId")
     private Collection<Indication> indicationCollection;
 

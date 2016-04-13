@@ -7,7 +7,6 @@ package fr.dauphine.lamsade.hib.predictions.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
-import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,34 +33,38 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "User.findByUserId", query = "SELECT u FROM User u WHERE u.userId = :userId"),
     @NamedQuery(name = "User.findByFirstName", query = "SELECT u FROM User u WHERE u.firstName = :firstName"),
     @NamedQuery(name = "User.findByLastName", query = "SELECT u FROM User u WHERE u.lastName = :lastName"),
-    @NamedQuery(name = "User.findByUserLogin", query = "SELECT u FROM User u WHERE u.userLogin = :userLogin"),
-    @NamedQuery(name = "User.findByUserPassword", query = "SELECT u FROM User u WHERE u.userPassword = :userPassword"),
-    @NamedQuery(name = "User.findByUserSincerity", query = "SELECT u FROM User u WHERE u.userSincerity = :userSincerity")})
+    @NamedQuery(name = "User.findByUserLogin", query = "SELECT u FROM User u WHERE u.userLogin = :userLogin")})
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
     @Column(name = "user_id")
     private Integer userId;
-    @Size(max = 25)
+       
+    @Size(max = 255)
     @Column(name = "first_name")
     private String firstName;
-    @Size(max = 25)
+    
+    @Size(max = 255)
     @Column(name = "last_name")
     private String lastName;
-    @Size(max = 25)
+    
+    @Size(max = 255)
     @Column(name = "user_login")
     private String userLogin;
-    @Size(max = 25)
+    
+    @Size(max = 255)
     @Column(name = "user_password")
     private String userPassword;
+    
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "user_sincerity")
-    private Double userSincerity;
+    private Double userSincerity = 0.0;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<Confirmation> confirmationCollection;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
     private Collection<Indication> indicationCollection;
 
